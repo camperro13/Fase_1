@@ -3,10 +3,11 @@ Fase 1 | Avance de Proyecto - Residencial_build
 Equipo #8
 
 Integrantes:
-- Juan Carlos Campero Villa A01795086
-- 
-- 
-- 
+- Renata Díaz Barreiro Castro
+- Victor Arista Beltrán
+- Juan Carlos Campero Villa
+- Jonathan Puga
+- Luis Miguel
 
 Residencial_build es el nombre de la herramienta, sus versiones de refactorizado son Residencial_build_Refactored_V#NumeroDeVersion.ipynb
 
