@@ -18,8 +18,8 @@ def preprocess_data(data):
     #Convertir a variables numéricas
     for col in  data.columns:
         data[col] = pd.to_numeric(data[col], errors='coerce')
-    #data_explorer.plot_correlation_matrix(data)
-    #data_explorer.plot_histograms(data)
+    data_explorer.plot_correlation_matrix(data)
+    data_explorer.plot_histograms(data)
     nc = data_explorer.pca_get(data)
     #Remover outliners
     for variable in data.iloc[:,:-2].columns:
@@ -35,7 +35,6 @@ def preprocess_data(data):
     upper = corr_matrix.where(np.triu(np.ones(corr_matrix.shape), k=1).astype(bool))# find features with correlation greater than 0.98
     to_drop = [column for column in upper.columns if any(upper[column] > 0.98)]# drop highly correlated features
     data.drop(to_drop, axis=1, inplace=True)
-    #data_versioning.save(data)
     #Dividir el dataset
     X = data.iloc[:,:-2]
     Y = data.iloc[:,[-2,-1]]
@@ -49,3 +48,4 @@ if __name__ == '__main__':
     X_test.to_csv('data/processed/X_test.csv', index=False) 
     y_train.to_csv('data/processed/y_train.csv', index=False) 
     y_test.to_csv('data/processed/y_test.csv', index=False) 
+    #data_versioning.save(data)
