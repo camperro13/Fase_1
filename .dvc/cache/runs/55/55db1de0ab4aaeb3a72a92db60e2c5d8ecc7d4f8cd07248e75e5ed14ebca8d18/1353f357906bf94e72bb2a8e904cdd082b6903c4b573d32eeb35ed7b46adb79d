@@ -1,0 +1,27 @@
+cmd: python3 src/preprocess_data.py data/processed/loaded_data.csv
+deps:
+- path: data/processed/loaded_data.csv
+  hash: md5
+  md5: d26bde1a55ce2a08e475bcca59569d87
+  size: 241825
+- path: src/preprocess_data.py
+  hash: md5
+  md5: 516289ff5a11a9213eba7216904b5ea3
+  size: 2347
+outs:
+- path: data/processed/X_test.csv
+  hash: md5
+  md5: 46d21ba0930b7967a1ec35fa5d355047
+  size: 19847
+- path: data/processed/X_train.csv
+  hash: md5
+  md5: 4d79651e278d169d25a78578b880c1e9
+  size: 77143
+- path: data/processed/y_test.csv
+  hash: md5
+  md5: ba44d03ca9abbb6ed5b0978a7143354b
+  size: 742
+- path: data/processed/y_train.csv
+  hash: md5
+  md5: 87a9a3e60e7aa74791a5263ff6377d12
+  size: 2933
