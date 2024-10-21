@@ -2,6 +2,8 @@ import seaborn as sns
 import matplotlib.pyplot as plt 
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
+import scipy.stats as stats
+import statsmodels.api as sm
 
 def explore_data(data):
     print('Explorando dataset:')
@@ -54,6 +56,25 @@ def plot_histograms(data):
 def plot_correlation_matrix(data):
     plt.figure(figsize=(50,50))
     sns.heatmap(data.corr(), annot=True, cmap='coolwarm', linewidths=0.5)
+    plt.show()
+
+def q_qplot(data):
+    numeric = data.columns
+    fig, axes = plt.subplots(int(len(numeric)/5)+1, 5, figsize=(25, 25))
+    i_limit = int(len(numeric)/5) + 1
+    j_limit = 4
+    i = 0
+    j = 0
+    for variable in numeric:
+        if j <= j_limit:
+            sm.qqplot(data[variable], line='s', ax=axes[i,j])
+            plt.title(f"Q-Q plot of {variable}")
+        else:
+            j = 0
+            i = i + 1
+            sm.qqplot(data[variable], line='s', ax=axes[i,j])
+            plt.title(f"Q-Q plot of {variable}")
+        j = j + 1
     plt.show()
 
 def pca_get(data):

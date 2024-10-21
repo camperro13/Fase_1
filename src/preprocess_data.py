@@ -2,7 +2,6 @@ import pandas as pd
 import sys
 import numpy as np
 import data_explorer
-import data_versioning
 from sklearn.model_selection import train_test_split
 
 def preprocess_data(data):
@@ -20,6 +19,7 @@ def preprocess_data(data):
         data[col] = pd.to_numeric(data[col], errors='coerce')
     data_explorer.plot_correlation_matrix(data)
     data_explorer.plot_histograms(data)
+    data_explorer.q_qplot(data)
     nc = data_explorer.pca_get(data)
     #Remover outliners
     for variable in data.iloc[:,:-2].columns:
@@ -47,5 +47,4 @@ if __name__ == '__main__':
     X_train.to_csv('data/processed/X_train.csv', index=False) 
     X_test.to_csv('data/processed/X_test.csv', index=False) 
     y_train.to_csv('data/processed/y_train.csv', index=False) 
-    y_test.to_csv('data/processed/y_test.csv', index=False) 
-    #data_versioning.save(data)
+    y_test.to_csv('data/processed/y_test.csv', index=False)
