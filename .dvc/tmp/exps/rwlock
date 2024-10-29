@@ -1,1 +1,0 @@
-{"read": {}, "write": {"workspace": {"pid": 53701, "cmd": "/Library/Frameworks/Python.framework/Versions/3.12/bin/dvc -v exp run"}, "refs/exps/stash": {"pid": 53701, "cmd": "/Library/Frameworks/Python.framework/Versions/3.12/bin/dvc -v exp run"}}}
