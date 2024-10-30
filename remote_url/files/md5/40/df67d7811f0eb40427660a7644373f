@@ -1,0 +1,11 @@
+Train Report:
+R2 score:
+0.9938154136796056
+Mean squared error:
+2853.0949808211276
+
+Test Report:
+R2 score:
+0.9830809280397936
+Mean squared error:
+5045.615553197265
