@@ -1,0 +1,40 @@
+stages:
+  load_data:
+    cmd: python3 src/load_data.py ${data.filepath} ${data.processed}loaded_data.csv
+    deps:
+    - src/load_data.py
+    - ${data.filepath}
+    outs:
+    - ${data.processed}loaded_data.csv
+
+  preprocess:
+    cmd: python3 src/preprocess_data.py ${data.processed}loaded_data.csv
+    deps:
+    - src/preprocess_data.py
+    - ${data.processed}loaded_data.csv
+    outs:
+    - ${data.processed}X_train.csv
+    - ${data.processed}X_test.csv
+    - ${data.processed}y_train.csv
+    - ${data.processed}y_test.csv
+
+  pipeline:
+    cmd: python3 src/make_pipeline.py ${data.processed}loaded_data.csv ${data.processed}X_train.csv ${data.processed}y_train.csv
+    deps:
+    - src/make_pipeline.py
+    - ${data.processed}loaded_data.csv
+    - ${data.processed}X_train.csv
+    - ${data.processed}y_train.csv
+    outs:
+    - ${data.models}/model_4.joblib
+
+  evaluate:
+    cmd: python3 src/evaluate_model.py ${data.models}model_4.joblib ${data.processed}X_test.csv
+      ${data.processed}y_test.csv ${data.processed}X_train.csv ${data.processed}y_train.csv
+    deps:
+    - src/evaluate_model.py
+    - ${data.models}model_4.joblib
+    - ${data.processed}X_test.csv
+    - ${data.processed}y_test.csv
+    - ${data.processed}X_train.csv
+    - ${data.processed}y_train.csv

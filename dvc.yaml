@@ -1,40 +1,63 @@
 stages:
   load_data:
-    cmd: python3 src/load_data.py ${data.filepath} ${data.processed}loaded_data.csv
+    cmd: python3 src/load_data_v2.py ${data.filepath} ${data.processed}loaded_data.csv
     deps:
-    - src/load_data.py
-    - ${data.filepath}
+      - src/load_data_v2.py
+      - ${data.filepath}
     outs:
-    - ${data.processed}loaded_data.csv
+      - ${data.processed}loaded_data.csv
 
   preprocess:
-    cmd: python3 src/preprocess_data.py ${data.processed}loaded_data.csv
+    cmd: python3 src/preprocess_data_v2.py ${data.processed}loaded_data.csv
     deps:
-    - src/preprocess_data.py
-    - ${data.processed}loaded_data.csv
+      - src/preprocess_data_v2.py
+      - ${data.processed}loaded_data.csv
     outs:
-    - ${data.processed}X_train.csv
-    - ${data.processed}X_test.csv
-    - ${data.processed}y_train.csv
-    - ${data.processed}y_test.csv
+      - ${data.processed}X_train.csv
+      - ${data.processed}X_test.csv
+      - ${data.processed}y_train.csv
+      - ${data.processed}y_test.csv
 
-  pipeline:
-    cmd: python3 src/make_pipeline.py ${data.processed}loaded_data.csv ${data.processed}X_train.csv ${data.processed}y_train.csv
+  pipeline_logistic:
+    cmd: python3 src/make_pipeline_v2.py ${data.processed}loaded_data.csv ${data.processed}X_train.csv ${data.processed}y_train.csv logistic_regression
     deps:
-    - src/make_pipeline.py
-    - ${data.processed}loaded_data.csv
-    - ${data.processed}X_train.csv
-    - ${data.processed}y_train.csv
+      - src/make_pipeline_v2.py
+      - ${data.processed}loaded_data.csv
+      - data/processed/X_train.csv
+      - data/processed/y_train.csv
     outs:
-    - ${data.models}/model_4.joblib
+      - ${data.models}/logistic_regression_model.joblib
 
-  evaluate:
-    cmd: python3 src/evaluate_model.py ${data.models}model_4.joblib ${data.processed}X_test.csv
-      ${data.processed}y_test.csv ${data.processed}X_train.csv ${data.processed}y_train.csv
+  pipeline_random_forest:
+    cmd: python3 src/make_pipeline_v2.py ${data.processed}loaded_data.csv ${data.processed}X_train.csv ${data.processed}y_train.csv random_forest
     deps:
-    - src/evaluate_model.py
-    - ${data.models}model_4.joblib
-    - ${data.processed}X_test.csv
-    - ${data.processed}y_test.csv
-    - ${data.processed}X_train.csv
-    - ${data.processed}y_train.csv
+      - src/make_pipeline_v2.py
+      - ${data.processed}loaded_data.csv
+      - ${data.processed}X_train.csv
+      - ${data.processed}y_train.csv
+    outs:
+      - ${data.models}/random_forest_model.joblib
+
+  evaluate_logistic:
+    cmd: python3 src/evaluate_model_v2.py ${data.models}logistic_regression_model.joblib ${data.processed}X_test.csv ${data.processed}y_test.csv ${data.processed}X_train.csv ${data.processed}y_train.csv reports/logistic_evaluation.txt
+    deps:
+      - src/evaluate_model_v2.py
+      - ${data.models}logistic_regression_model.joblib
+      - ${data.processed}X_test.csv
+      - ${data.processed}y_test.csv
+      - ${data.processed}X_train.csv
+      - ${data.processed}y_train.csv
+    outs:
+      - reports/logistic_evaluation.txt
+
+  evaluate_random_forest:
+    cmd: python3 src/evaluate_model_v2.py ${data.models}random_forest_model.joblib ${data.processed}X_test.csv ${data.processed}y_test.csv ${data.processed}X_train.csv ${data.processed}y_train.csv reports/random_forest_evaluation.txt
+    deps:
+      - src/evaluate_model_v2.py
+      - ${data.models}random_forest_model.joblib
+      - ${data.processed}X_test.csv
+      - ${data.processed}y_test.csv
+      - ${data.processed}X_train.csv
+      - ${data.processed}y_train.csv
+    outs:
+      - reports/random_forest_evaluation.txt

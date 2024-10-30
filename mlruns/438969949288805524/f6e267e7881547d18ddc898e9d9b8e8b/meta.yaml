@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/juancarloscamperovilla/Documents/GitHub/MLOps/Residencial_build/Fase_1/mlruns/438969949288805524/f6e267e7881547d18ddc898e9d9b8e8b/artifacts
+end_time: 1730303056988
+entry_point_name: ''
+experiment_id: '438969949288805524'
+lifecycle_stage: active
+run_id: f6e267e7881547d18ddc898e9d9b8e8b
+run_name: intrigued-elk-10
+run_uuid: f6e267e7881547d18ddc898e9d9b8e8b
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1730303055188
+status: 3
+tags: []
+user_id: juancarloscamperovilla

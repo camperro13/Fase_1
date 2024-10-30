@@ -1,7 +1,7 @@
 schema: '2.0'
 stages:
   load_data:
-    cmd: python3 src/load_data.py 
+    cmd: python3 src/load_data_v2.py 
       /Users/juancarloscamperovilla/Documents/GitHub/MLOps/Residencial_build/Fase_1/data/raw/Residential-Building-Data-Set.xlsx
       data/processed/loaded_data.csv
     deps:
@@ -10,7 +10,7 @@ stages:
       md5: 03a47d5ac2bcbd0712e61c7ef86c45e8
       size: 311097
       isexec: true
-    - path: src/load_data.py
+    - path: src/load_data_v2.py
       hash: md5
       md5: c3d45d46e133158b3250edc8634d4e74
       size: 332
@@ -20,13 +20,13 @@ stages:
       md5: d26bde1a55ce2a08e475bcca59569d87
       size: 241825
   preprocess:
-    cmd: python3 src/preprocess_data.py data/processed/loaded_data.csv
+    cmd: python3 src/preprocess_data_v2.py data/processed/loaded_data.csv
     deps:
     - path: data/processed/loaded_data.csv
       hash: md5
       md5: d26bde1a55ce2a08e475bcca59569d87
       size: 241825
-    - path: src/preprocess_data.py
+    - path: src/preprocess_data_v2.py
       hash: md5
       md5: 0277e680c2563ffe1c6a91e6a0901673
       size: 2291
@@ -100,3 +100,121 @@ stages:
       hash: md5
       md5: 570d2a5cfe9badd84d8c4a6a95a26108
       size: 1279
+  pipeline_logistic:
+    cmd: python3 src/make_pipeline_v2.py data/processed/loaded_data.csv data/processed/X_train.csv
+      data/processed/y_train.csv logistic_regression
+    deps:
+    - path: data/processed/X_train.csv
+      hash: md5
+      md5: 4d79651e278d169d25a78578b880c1e9
+      size: 77143
+    - path: data/processed/loaded_data.csv
+      hash: md5
+      md5: d26bde1a55ce2a08e475bcca59569d87
+      size: 241825
+    - path: data/processed/y_train.csv
+      hash: md5
+      md5: 87a9a3e60e7aa74791a5263ff6377d12
+      size: 2933
+    - path: src/make_pipeline_v2.py
+      hash: md5
+      md5: 5636d4c832f8c6fdaf42dd35868a645a
+      size: 2727
+    outs:
+    - path: models//logistic_regression_model.joblib
+      hash: md5
+      md5: 0481e7550bb81cc9a795b657a41bdc96
+      size: 20214
+  pipeline_random_forest:
+    cmd: python3 src/make_pipeline_v2.py data/processed/loaded_data.csv data/processed/X_train.csv
+      data/processed/y_train.csv random_forest
+    deps:
+    - path: data/processed/X_train.csv
+      hash: md5
+      md5: 4d79651e278d169d25a78578b880c1e9
+      size: 77143
+    - path: data/processed/loaded_data.csv
+      hash: md5
+      md5: d26bde1a55ce2a08e475bcca59569d87
+      size: 241825
+    - path: data/processed/y_train.csv
+      hash: md5
+      md5: 87a9a3e60e7aa74791a5263ff6377d12
+      size: 2933
+    - path: src/make_pipeline_v2.py
+      hash: md5
+      md5: 5636d4c832f8c6fdaf42dd35868a645a
+      size: 2727
+    outs:
+    - path: models//random_forest_model.joblib
+      hash: md5
+      md5: 22ffc6ac9e95121b24acd7d5765e9684
+      size: 2099471
+  evaluate_logistic:
+    cmd: python3 src/evaluate_model_v2.py models/logistic_regression_model.joblib
+      data/processed/X_test.csv data/processed/y_test.csv data/processed/X_train.csv
+      data/processed/y_train.csv reports/logistic_evaluation.txt
+    deps:
+    - path: data/processed/X_test.csv
+      hash: md5
+      md5: 46d21ba0930b7967a1ec35fa5d355047
+      size: 19847
+    - path: data/processed/X_train.csv
+      hash: md5
+      md5: 4d79651e278d169d25a78578b880c1e9
+      size: 77143
+    - path: data/processed/y_test.csv
+      hash: md5
+      md5: ba44d03ca9abbb6ed5b0978a7143354b
+      size: 742
+    - path: data/processed/y_train.csv
+      hash: md5
+      md5: 87a9a3e60e7aa74791a5263ff6377d12
+      size: 2933
+    - path: models/logistic_regression_model.joblib
+      hash: md5
+      md5: 0481e7550bb81cc9a795b657a41bdc96
+      size: 20214
+    - path: src/evaluate_model_v2.py
+      hash: md5
+      md5: 6756e03d028641dc8997e92dac185e2e
+      size: 1983
+    outs:
+    - path: reports/logistic_evaluation.txt
+      hash: md5
+      md5: 40df67d7811f0eb40427660a7644373f
+      size: 162
+  evaluate_random_forest:
+    cmd: python3 src/evaluate_model_v2.py models/random_forest_model.joblib data/processed/X_test.csv
+      data/processed/y_test.csv data/processed/X_train.csv data/processed/y_train.csv
+      reports/random_forest_evaluation.txt
+    deps:
+    - path: data/processed/X_test.csv
+      hash: md5
+      md5: 46d21ba0930b7967a1ec35fa5d355047
+      size: 19847
+    - path: data/processed/X_train.csv
+      hash: md5
+      md5: 4d79651e278d169d25a78578b880c1e9
+      size: 77143
+    - path: data/processed/y_test.csv
+      hash: md5
+      md5: ba44d03ca9abbb6ed5b0978a7143354b
+      size: 742
+    - path: data/processed/y_train.csv
+      hash: md5
+      md5: 87a9a3e60e7aa74791a5263ff6377d12
+      size: 2933
+    - path: models/random_forest_model.joblib
+      hash: md5
+      md5: 22ffc6ac9e95121b24acd7d5765e9684
+      size: 2099471
+    - path: src/evaluate_model_v2.py
+      hash: md5
+      md5: 6756e03d028641dc8997e92dac185e2e
+      size: 1983
+    outs:
+    - path: reports/random_forest_evaluation.txt
+      hash: md5
+      md5: a4f78a5e4f7a5f5ba159caa3c7b6e755
+      size: 161

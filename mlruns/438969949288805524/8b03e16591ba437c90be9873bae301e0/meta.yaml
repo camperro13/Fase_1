@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/juancarloscamperovilla/Documents/GitHub/MLOps/Residencial_build/Fase_1/mlruns/438969949288805524/8b03e16591ba437c90be9873bae301e0/artifacts
+end_time: 1730303051060
+entry_point_name: ''
+experiment_id: '438969949288805524'
+lifecycle_stage: active
+run_id: 8b03e16591ba437c90be9873bae301e0
+run_name: invincible-frog-291
+run_uuid: 8b03e16591ba437c90be9873bae301e0
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1730303049272
+status: 3
+tags: []
+user_id: juancarloscamperovilla
