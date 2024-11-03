@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/juancarloscamperovilla/Documents/GitHub/MLOps/Residencial_build/Fase_1/mlruns/438969949288805524/3a3fc23f8b42482eb30b41739e7e8e78/artifacts
+end_time: 1730568744305
+entry_point_name: ''
+experiment_id: '438969949288805524'
+lifecycle_stage: active
+run_id: 3a3fc23f8b42482eb30b41739e7e8e78
+run_name: chill-cod-726
+run_uuid: 3a3fc23f8b42482eb30b41739e7e8e78
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1730568742451
+status: 3
+tags: []
+user_id: juancarloscamperovilla

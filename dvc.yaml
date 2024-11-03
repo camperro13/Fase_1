@@ -61,3 +61,20 @@ stages:
       - ${data.processed}y_train.csv
     outs:
       - reports/random_forest_evaluation.txt
+  
+  testing:
+    cmd: pytest tests/test_residencial_build.py --html=report_testing.html
+    deps:
+      - src/load_data_v2.py
+      - tests/test_residencial_build.py
+      - src/evaluate_model_v2.py
+      - src/preprocess_data_v2.py
+    outs:
+      - report_testing.html
+
+  pdf_results:
+    cmd: python3 src/pdf_creator.py
+    deps:
+      - src/pdf_creator.py
+    outs:
+      - report_testing.txt

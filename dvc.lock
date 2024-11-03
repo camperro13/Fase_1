@@ -123,7 +123,7 @@ stages:
     outs:
     - path: models//logistic_regression_model.joblib
       hash: md5
-      md5: 0481e7550bb81cc9a795b657a41bdc96
+      md5: 9eaffdb9aeae3f30de4fd6e36381302e
       size: 20214
   pipeline_random_forest:
     cmd: python3 src/make_pipeline_v2.py data/processed/loaded_data.csv data/processed/X_train.csv
@@ -173,7 +173,7 @@ stages:
       size: 2933
     - path: models/logistic_regression_model.joblib
       hash: md5
-      md5: 0481e7550bb81cc9a795b657a41bdc96
+      md5: 9eaffdb9aeae3f30de4fd6e36381302e
       size: 20214
     - path: src/evaluate_model_v2.py
       hash: md5
@@ -182,8 +182,8 @@ stages:
     outs:
     - path: reports/logistic_evaluation.txt
       hash: md5
-      md5: 40df67d7811f0eb40427660a7644373f
-      size: 162
+      md5: 386e89e7ae6bd60887ada48acc823650
+      size: 161
   evaluate_random_forest:
     cmd: python3 src/evaluate_model_v2.py models/random_forest_model.joblib data/processed/X_test.csv
       data/processed/y_test.csv data/processed/X_train.csv data/processed/y_train.csv
@@ -218,3 +218,39 @@ stages:
       hash: md5
       md5: a4f78a5e4f7a5f5ba159caa3c7b6e755
       size: 161
+  testing:
+    cmd: pytest tests/test_residencial_build.py --html=report_testing.html
+    deps:
+    - path: src/evaluate_model_v2.py
+      hash: md5
+      md5: 6756e03d028641dc8997e92dac185e2e
+      size: 1983
+    - path: src/load_data_v2.py
+      hash: md5
+      md5: c3d45d46e133158b3250edc8634d4e74
+      size: 332
+    - path: src/preprocess_data_v2.py
+      hash: md5
+      md5: 0277e680c2563ffe1c6a91e6a0901673
+      size: 2291
+    - path: tests/test_residencial_build.py
+      hash: md5
+      md5: 7d81dcc03b12202388f6f47da5dc6878
+      size: 4989
+    outs:
+    - path: report_testing.html
+      hash: md5
+      md5: ba58e39f4de65617fa55c820341cd7a9
+      size: 28539
+  pdf_results:
+    cmd: python3 src/pdf_creator.py
+    deps:
+    - path: src/pdf_creator.py
+      hash: md5
+      md5: 988e6dacd4ef0a4f01407b1b0f1b79d7
+      size: 796
+    outs:
+    - path: report_testing.txt
+      hash: md5
+      md5: c8a042f852f2a7d6ce65245a1dc0be65
+      size: 584
