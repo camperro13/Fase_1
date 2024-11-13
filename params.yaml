@@ -1,4 +1,4 @@
 data:
-  filepath: "/Users/juancarloscamperovilla/Documents/GitHub/MLOps/Residencial_build/Fase_1/data/raw/Residential-Building-Data-Set.xlsx"
+  filepath: data/raw/Residential-Building-Data-Set.xlsx
   processed: data/processed/
   models: models/

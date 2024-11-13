@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  dvc-experiment:
+    build: .
+    environment:
+      - DVC_REMOTE_STORAGE=Users/juancarloscamperovilla/Documents/GitHub/MLOps/Residencial_build/Fase_1/local_dvc_storage  # Set DVC remote if needed
+    volumes:
+      - .:/app 
+      - /Users/juancarloscamperovilla/Documents/GitHub/MLOps/Residencial_build/Fase_1/data/raw/Residential-Building-Data-Set.xlsx:/app/data/raw/Residential-Building-Data-Set.xlsx # Mount the current directory to the container's /app
+    command: ["dvc", "exp", "run"]  # Run the DVC experiment

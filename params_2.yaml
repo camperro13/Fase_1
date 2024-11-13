@@ -1,10 +1,11 @@
 data:
-  filepath: "/Users/juancarloscamperovilla/Documents/GitHub/MLOps/Residencial_build/Fase_1/data/raw/Residential-Building-Data-Set.xlsx"
+  filepath: data/raw/Residential-Building-Data-Set.xlsx
   processed: data/processed/
   models: models/
 
 models:
   logistic_regression:
+  
     fit_intercept: True
   random_forest:
     n_estimators: 100
